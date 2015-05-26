@@ -41,16 +41,14 @@ class AllCustomerReviewsPage extends Page
 
   #### get review id array.
   getReviewIds: ->
-    reviewLinkTags = @$('#productReviews a')
+    reviewLinkTags = @$('.review')
 
     reviewIds = []
     reviewLinkTags.each (index, element) ->
-      # there should be `name` attribute but no `style` attribute.
-      name = @?.attr('name')
-      style = @?.attr('style')
+      id = @?.attr('id')
       
-      if name? and name[...3] isnt 'oc-' and not style?
-        reviewIds.push @?.attr('name')
+      if id?
+        reviewIds.push id.substring(7)
 
     reviewIds
 
