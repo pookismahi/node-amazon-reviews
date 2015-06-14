@@ -2,46 +2,27 @@ async = require 'async'
 
 AllCustomerReviewsPage = require './page/AllCustomerReviewsPage'
 
-
 #### retrieve review IDs by a productId.
-module.exports = (options, callback) ->
-  return callback new Error 'no options.productId'  if not options.productId?
+module.exports = ({productId}, callback) ->
+  return callback new Error 'no productId' if not productId?
 
   reviewIds = []
+  lastReviewIds = []
 
   isLastPage = false
-  currentUrl = "http://www.amazon.com/product-reviews/#{options.productId}/ref=cm_cr_pr_top_recent?ie=UTF8&showViewpoints=0&sortBy=bySubmissionDateDescending"
+  pageNumber = 1
+  currentUrl = null
 
-  allCustomerReviewsPage = new AllCustomerReviewsPage
-    url: currentUrl
-  ,
-    (err, $) ->
-      return callback err  if err?
+  test = () -> lastReviewIds?.length
+  results = () -> callback null, reviewIds
 
-      allCustomerReviewsPage.$ = $
-      reviewIds = reviewIds.concat allCustomerReviewsPage.getReviewIds()
-      nextPageUrl = allCustomerReviewsPage.getNextPageUrl()
-      lastPageNo = allCustomerReviewsPage.getLastPageNo()
+  async.doWhilst (cb) =>
+    currentUrl = "http://www.amazon.com/gp/aw/cr/#{productId}/p=#{pageNumber}"
+    pageNumber++
+    allCustomerReviewsPage = new AllCustomerReviewsPage url:currentUrl, (err) =>
+      return cb err if err
 
-      return callback null, reviewIds  if lastPageNo <= 1
-
-      reviewPageNos = [ 2..lastPageNo ]
-
-      async.forEachLimit reviewPageNos, 100
-      ,
-        (reviewPageNo, callback) ->
-          allCustomerReviewsPage = new AllCustomerReviewsPage
-            url: nextPageUrl.replace /pageNumber=[\d]*/g, "pageNumber=#{reviewPageNo}"
-          ,
-            (err, $) ->
-              return callback err  if err?
-
-              allCustomerReviewsPage.$ = $
-              reviewIds = reviewIds.concat allCustomerReviewsPage.getReviewIds()
-              
-              callback null
-      ,
-        (err) ->
-          return callback err  if err?
-
-          callback null, reviewIds
+      lastReviewIds = allCustomerReviewsPage.getReviewIds()
+      reviewIds = reviewIds.concat lastReviewIds
+      cb null
+  , test, results

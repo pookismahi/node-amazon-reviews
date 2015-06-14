@@ -4,10 +4,10 @@
   "description": "A node.js module to crawl product reviews from Amazon.",
   "main": "index.js",
   "dependencies": {
-    "coffee-script": "~1.7.1",
-    "async": "~0.2.10",
-    "request": "~2.34.0",
-    "cheerio": "~0.14.0"
+    "coffee-script": "^1.9.3",
+    "async": "^1.2.1",
+    "request": "^2.57.0",
+    "cheerio": "^0.19.0"
   },
   "devDependencies": {
     "should": "~1.0.0",

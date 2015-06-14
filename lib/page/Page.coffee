@@ -1,8 +1,8 @@
 request = require 'request'
 cheerio = require 'cheerio'
+fs = require 'fs'
 
-
-class Page
+module.exports = class Page
   #### default options for load a web-page.
   defaultOptions:
     headers:
@@ -16,20 +16,25 @@ class Page
   #### load and parse the page.
   # `options` must have `url`.
   constructor: (@options, callback) ->
-    return callback new Error 'no url.'  if not options.url?
+    return callback new Error 'no url.' if not @options.url?
+    console.log "loading url #{@options.url}"
 
     for k, v of @defaultOptions
-      options[k] = v  if not options[k]?
+      @options[k] = v  if not @options[k]?
 
-    request options, (err, response, body) =>
+    request @options, (err, response, body) =>
       return callback err  if err?
 
       if response?.statusCode isnt 200
         return callback new Error "#{response.statusCode} - #{body}"
 
+      # console.log ("writing file")
+      # fs.writeFileSync("#{Date.now()}.html", body)
+
+      # uri = response.request.uri
+      # @basePath = uri.href.replace uri.path, ""
+      # console.log "base path #{@basePath}"
+
       @$ = cheerio.load body
       callback null, @$
 
-
-
-module.exports = Page
