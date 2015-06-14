@@ -8,10 +8,7 @@ module.exports = ({productId}, callback) ->
 
   reviewIds = []
   lastReviewIds = []
-
-  isLastPage = false
   pageNumber = 1
-  currentUrl = null
 
   test = () -> lastReviewIds?.length
   results = () -> callback null, reviewIds

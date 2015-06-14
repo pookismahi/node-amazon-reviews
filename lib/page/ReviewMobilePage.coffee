@@ -1,27 +1,18 @@
 Page = require './Page'
+S = require 'string'
 
-
-class ReviewMobilePage extends Page
-  parse: ->
-    return new Error 'the page is not loaded.'  if not @$?
-
-    result = {}
-    result.title = @$('#reviews-list h4')?.text()?.replace /\n/g, ''
-    result.starCount = @$('.a-icon-star-full').length
-    
-    dateText = @$('span.a-color-secondary')?.eq(0)?.text()?.split('-')?[1]?.replace /\n/g, ''
-    result.createdAt = new Date dateText
-    
+module.exports = class ReviewMobilePage extends Page
+  parse: () ->
     # replace all br tags to new lines.
-    descTag = @$('.a-spacing-micro')
-    descTag?.find('br')?.replaceWith '\n'
-    result.descText = @$('.a-spacing-micro').text()
+    descTag = @$('.a-spacing-micro').find('br').replaceWith '\n'
+    starString = @$('.a-icon-star').attr('class')?.replace /.*a-star-(\d*).*/g, '$1'
+    dateText = @$('span.a-color-secondary').first().text().split('-')[1].replace /\n/g, ''
+    console.log dateText
 
-    result.helpfulCount = Number @$('.votes-helpful').text()
-    result.voteCount = Number @$('.votes-total').text()
-
-    result
-
-
-
-module.exports = ReviewMobilePage
+    title: S(@$('.review h4').text()).trim().s
+    starCount: S(starString).toInt()
+    createdAt: new Date dateText
+    descText: S(@$('.a-spacing-micro').text()).trim().s
+    helpfulCount: S(@$('.votes-helpful').text()).toInt()
+    voteCount: S(@$('.votes-total').text()).toInt()
+        
