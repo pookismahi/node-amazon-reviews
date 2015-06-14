@@ -18,7 +18,7 @@ module.exports = class Page
   # `options` must have `url`.
   constructor: (@options, callback) ->
     return callback new Error 'no url.' if not @options.url?
-    console.log "loading url #{@options.url}"
+    # console.log "loading url #{@options.url}"
     _.defaults @options, @defaultOptions
     
     request @options, (err, response, body) =>
@@ -27,9 +27,9 @@ module.exports = class Page
       if response?.statusCode isnt 200
         return callback new Error "#{response.statusCode} - #{body}"
 
-      filename = "#{Date.now()}.html"
-      console.log "writing file #{filename}"
-      fs.writeFileSync filename, body
+      # filename = "#{Date.now()}.html"
+      # console.log "writing file #{filename}"
+      # fs.writeFileSync filename, body
 
       # uri = response.request.uri
       # @basePath = uri.href.replace uri.path, ""
