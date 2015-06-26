@@ -12,6 +12,7 @@ module.exports = class ReviewMobilePage extends Page
     dateText = @$('span.a-color-secondary').first().text().split('-')[1].replace /\n/g, ''
 
     id: @reviewId
+    productId: @productId
     title: S(@$('.review h4').text()).trim().s
     starCount: S(starString).toInt()
     createdAt: new Date dateText
