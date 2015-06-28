@@ -40,7 +40,7 @@ getReview = (options, callback) =>
 #### retrieve reviews by a productId.
 getReviews = ({productId}, callback) =>
   getReviewIds { productId }, (err, reviewIds) ->
-    async.concat reviewIds, (reviewId, callback) ->
+    async.concatSeries reviewIds, (reviewId, callback) ->
       getReview { productId, reviewId }, callback
     , (err, reviews) =>
       callback err, reviews
