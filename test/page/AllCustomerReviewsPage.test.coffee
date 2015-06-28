@@ -2,24 +2,16 @@ should = require 'should'
 
 AllCustomerReviewsPage = require '../../lib/page/AllCustomerReviewsPage'
 
+PRODUCT_ID = 'B00DFFT76U'
 
 describe 'AllCustomerReviewsPage', ->
   it 'should be done', (done) ->
-    allCustomerReviewsPage = new AllCustomerReviewsPage
-      url: 'http://www.amazon.com/Pampers-Swaddlers-Diapers-Economy-Count/product-reviews/B00DFFT76U'
-    ,
-      (err, $) ->
-        should.not.exist err
-        should.exist $
+    page = new AllCustomerReviewsPage
+      productId: PRODUCT_ID
+    , (err) ->
+      should.not.exist err
+      page.productId.should.equal PRODUCT_ID
+      page.pageNumber.should.equal 1
+      page.getReviewIds().should.length 10
 
-        productId = allCustomerReviewsPage.getProductId()
-        should.exist productId
-        productId.should.equal 'B00DFFT76U'
-
-        nextPageUrl = allCustomerReviewsPage.getNextPageUrl()
-        should.exist nextPageUrl
-
-        reviewIds = allCustomerReviewsPage.getReviewIds()
-        reviewIds.should.length 10
-
-        done()
+      done()

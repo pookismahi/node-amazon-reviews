@@ -37,6 +37,7 @@ getReview = (options, callback) =>
       _.defaults review, reviewDesktopPage.parse()
       callback null, review
 
+#### retrieve reviews by a productId.
 getReviews = ({productId}, callback) =>
   getReviewIds { productId }, (err, reviewIds) ->
     async.concat reviewIds, (reviewId, callback) ->

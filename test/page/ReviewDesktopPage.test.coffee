@@ -2,18 +2,15 @@ should = require 'should'
 
 ReviewDesktopPage = require '../../lib/page/ReviewDesktopPage'
 
-
 describe 'ReviewDesktopPage', ->
   describe 'parse()', ->
     it 'should be done', (done) ->
-      reviewDesktopPage = new ReviewDesktopPage
-        url: 'http://www.amazon.com/review/RDQO5C2XEPVPC'
-      ,
-        (err, $) ->
-          should.not.exist err
-          should.exist $
+      page = new ReviewDesktopPage
+        reviewId: 'RDQO5C2XEPVPC'
+      , (err) ->
+        should.not.exist err
 
-          result = reviewDesktopPage.parse()
-          should.exist result
-
-          done()
+        result = page.parse()
+        should.exist result?.profile
+        
+        done()
