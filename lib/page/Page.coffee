@@ -23,6 +23,9 @@ module.exports = class Page
   makeRequest: (@options, callback) =>
     # console.log "loading url #{@options.url}"
     @requestCount++
+    return callback 'exceeded captcha retry count' if @requestCount >= 6
+    console.log "got a captcha" if @requestCount > 1
+
     _.defaults @options, @defaultOptions
     
     request @options, (err, response, body) =>
@@ -35,7 +38,7 @@ module.exports = class Page
       # console.log "writing file #{filename}"
       # fs.writeFileSync filename, body
 
-      return _.delay @makeRequest, 3000, @options, callback if body.match(/Captcha/)
+      return _.delay @makeRequest, 5000, @options, callback if body.match(/Captcha/)
 
       # uri = response.request.uri
       # @basePath = uri.href.replace uri.path, ""
