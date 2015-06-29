@@ -46,6 +46,7 @@ describe 'Pages', ->
 
         result = page.parse()
         should.exist result?.profile
+        result.profile.id.should.equal 'A276OI0NHBYORX'
         
         done()
 

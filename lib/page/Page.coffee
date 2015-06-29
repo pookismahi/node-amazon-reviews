@@ -13,12 +13,16 @@ module.exports = class Page
       'Connection': 'keep-alive'
       'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3'
 
-
   #### load and parse the page.
   # `options` must have `url`.
   constructor: (@options, callback) ->
     return callback new Error 'no url.' if not @options.url?
+    @requestCount = 0
+    @makeRequest @options, callback
+
+  makeRequest: (@options, callback) =>
     # console.log "loading url #{@options.url}"
+    @requestCount++
     _.defaults @options, @defaultOptions
     
     request @options, (err, response, body) =>
@@ -30,6 +34,8 @@ module.exports = class Page
       # filename = "#{Date.now()}.html"
       # console.log "writing file #{filename}"
       # fs.writeFileSync filename, body
+
+      return _.delay @makeRequest, 3000, @options, callback if body.match(/Captcha/)
 
       # uri = response.request.uri
       # @basePath = uri.href.replace uri.path, ""

@@ -7,9 +7,10 @@ module.exports = class ReviewDesktopPage extends Page
   parse: ->
     profileTag = @$('.crAuthorInfo').find('a').first()
     profileUrl = profileTag.attr('href')
+    profileUrlComponents = profileUrl.split('/')
 
     profile: 
       name: profileTag.text()
       url: profileUrl
-      id: profileUrl.split('/')[4]
+      id: (profileUrlComponents.length >= 5 and profileUrlComponents[4]) or ''
 
