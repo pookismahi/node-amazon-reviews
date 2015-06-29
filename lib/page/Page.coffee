@@ -2,6 +2,7 @@ request = require 'request'
 cheerio = require 'cheerio'
 fs = require 'fs'
 _ = require 'underscore'
+random_useragent = require 'random-useragent'
 
 module.exports = class Page
   #### default options for load a web-page.
@@ -27,7 +28,8 @@ module.exports = class Page
     console.log "got a captcha" if @requestCount > 1
 
     _.defaults @options, @defaultOptions
-    
+    # @options.headers['User-Agent'] = random_useragent.getRandom()
+
     request @options, (err, response, body) =>
       return callback err  if err?
 
@@ -38,7 +40,7 @@ module.exports = class Page
       # console.log "writing file #{filename}"
       # fs.writeFileSync filename, body
 
-      return _.delay @makeRequest, 5000, @options, callback if body.match(/Captcha/)
+      return _.delay @makeRequest, 5000 * @requestCount, @options, callback if body.match(/Captcha/)
 
       # uri = response.request.uri
       # @basePath = uri.href.replace uri.path, ""
