@@ -1,6 +1,6 @@
 {
   "name": "amazon-reviews",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A node.js module to crawl product reviews from Amazon.",
   "main": "index.js",
   "dependencies": {
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/xissy/node-amazon-reviews.git"
+    "url": "https://github.com/pookismahi/node-amazon-reviews.git"
   },
   "keywords": [
     "amazon",
@@ -32,9 +32,9 @@
     "review",
     "crawl"
   ],
-  "author": "Taeho Kim <xissysnd@gmail.com>",
+  "author": "Shawn Zeller <szeller@pookismahi.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xissy/node-amazon-reviews/issues"
+    "url": "https://github.com/pookismahi/node-amazon-reviews/issues"
   }
 }
