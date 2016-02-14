@@ -33,7 +33,9 @@ describe 'Pages', ->
         should.not.exist err
         page.productId.should.equal PRODUCT_ID
         page.pageNumber.should.equal 1
-        page.getReviewIds().should.length 10
+        reviewIds = page.getReviewIds()
+        reviewIds.should.have.length 10
+        reviewIds[0].should.have.length.at.least 13
 
         done()
 

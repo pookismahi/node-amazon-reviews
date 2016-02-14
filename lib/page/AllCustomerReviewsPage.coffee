@@ -9,7 +9,7 @@ module.exports = class AllCustomerReviewsPage extends Page
   getReviewIds: =>
     reviewIds = []
     @$('.review').each (index, element) => 
-      id = @$(element).attr('id')?.substring 7
+      id = @$(element).attr('id')
       reviewIds.push id if id
 
     reviewIds
