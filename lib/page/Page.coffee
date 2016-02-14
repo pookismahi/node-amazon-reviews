@@ -2,7 +2,7 @@ request = require 'request'
 cheerio = require 'cheerio'
 fs = require 'fs'
 _ = require 'underscore'
-random_useragent = require 'random-useragent'
+# random_useragent = require 'random-useragent'
 
 module.exports = class Page
   #### default options for load a web-page.

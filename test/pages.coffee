@@ -1,4 +1,4 @@
-should = require 'should'
+should = require('chai').should()
 
 pageDir = '../lib/page'
 Page = require "#{pageDir}/Page"
