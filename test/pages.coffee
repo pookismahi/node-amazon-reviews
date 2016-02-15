@@ -39,6 +39,24 @@ describe 'Pages', ->
 
         done()
 
+    it 'should be able to load multiple pages for a product', (done) ->
+      page1 = new AllCustomerReviewsPage
+        productId: PRODUCT_ID
+      , (err) ->
+        should.not.exist err
+
+        page2 = new AllCustomerReviewsPage
+          productId: PRODUCT_ID
+          pageNumber: 2
+        , (err) ->
+          should.not.exist err
+
+          page2.pageNumber.should.equal 2
+          page2.getReviewIds().should.have.length 10
+          page1.getReviewIds().should.not.deep.equal page2.getReviewIds()
+
+          done()
+
   describe 'ReviewDesktopPage', ->
     it 'should be able to load a review', (done) ->
       page = new ReviewDesktopPage
