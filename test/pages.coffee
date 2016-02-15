@@ -9,6 +9,9 @@ ReviewMobilePage = require "#{pageDir}/ReviewMobilePage"
 PRODUCT_ID = 'B00DFFT76U'
 REVIEW_ID = 'RDQO5C2XEPVPC'
 
+PRODUCT_ID2 = 'B004EXWGJW'
+REVIEW_ID2 = 'R31A3TLCC0QNFZ'
+
 describe 'Pages', ->
 
   describe 'Page', ->
@@ -66,9 +69,24 @@ describe 'Pages', ->
 
         result = page.parse()
         should.exist result?.profile
-        result.profile.id.should.equal 'A276OI0NHBYORX'
+        result.profile.should.have.property 'name', 'Emily'
+        result.profile.should.have.property 'id', 'A276OI0NHBYORX'
         
         done()
+
+    it 'should be able to load a review without an author profile', (done) ->
+      page = new ReviewDesktopPage
+        reviewId: REVIEW_ID2
+      , (err) ->
+        should.not.exist err
+
+        result = page.parse()
+        result.should.have.property.profile
+        result.profile.should.have.property 'name', ''
+        result.profile.should.have.property 'url', ''
+        result.profile.should.have.property 'id', ''
+        
+        done()      
 
   describe 'ReviewMobilePage', ->
     it 'should be able to load a review', (done) ->

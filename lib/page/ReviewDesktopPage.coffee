@@ -6,8 +6,8 @@ module.exports = class ReviewDesktopPage extends Page
 
   parse: ->
     profileTag = @$('.crAuthorInfo').find('a').first()
-    profileUrl = profileTag.attr('href')
-    profileUrlComponents = profileUrl.split('/')
+    profileUrl = profileTag.attr('href') or ''
+    profileUrlComponents = profileUrl?.split('/') or []
 
     profile: 
       name: profileTag.text()
