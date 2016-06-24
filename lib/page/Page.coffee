@@ -2,9 +2,11 @@ request = require 'request'
 cheerio = require 'cheerio'
 fs = require 'fs'
 _ = require 'underscore'
+chance = require('chance')()
 # random_useragent = require 'random-useragent'
 
 module.exports = class Page
+
   #### default options for load a web-page.
   defaultOptions:
     headers:
@@ -19,13 +21,20 @@ module.exports = class Page
   constructor: (@options, callback) ->
     return callback new Error 'no url.' if not @options.url?
     @requestCount = 0
+    @defaultOptions.headers['User-Agent'] = @userAgent()
     @makeRequest @options, callback
+
+  userAgent: () ->
+    safariBuild = chance.floating {min: 3214, max: 9985, fixed: 2}
+    webkitBuild = chance.floating {min: 256, max: 831, fixed: 2}
+
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/#{webkitBuild} (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/#{safariBuild}.3"
 
   makeRequest: (@options, callback) =>
     # console.log "loading url #{@options.url}"
     @requestCount++
     return callback 'exceeded captcha retry count' if @requestCount >= 6
-    console.log "got a captcha" if @requestCount > 1
+    console.log "got a captcha on request #{@requestCount}" if @requestCount > 1
 
     _.defaults @options, @defaultOptions
     # @options.headers['User-Agent'] = random_useragent.getRandom()
@@ -40,7 +49,8 @@ module.exports = class Page
       # console.log "writing file #{filename}"
       # fs.writeFileSync filename, body
 
-      return _.delay @makeRequest, 5000 * @requestCount, @options, callback if body.match(/Captcha/)
+      wait = chance.integer {min: 5000, max: 30000}
+      return _.delay @makeRequest, wait * @requestCount, @options, callback if body.match(/Captcha/)
 
       # uri = response.request.uri
       # @basePath = uri.href.replace uri.path, ""
