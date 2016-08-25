@@ -35,7 +35,7 @@ describe 'Top level review methods', ->
 
   it 'should be able to fetch both review ids and reviews for a product - getReviews', (done) ->
     AmazonReviews.getReviews
-      productId: 'B014XC8IQI'
+      productId: 'B004P7CN40'
     , (err, reviews) ->
       should.not.exist err
       should.exist reviews
