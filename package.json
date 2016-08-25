@@ -4,9 +4,9 @@
   "description": "A node.js module to crawl product reviews from Amazon.",
   "main": "index.js",
   "dependencies": {
-    "async": "^1.2.1",
+    "async": "^2.0.1",
     "chance": "^1.0.3",
-    "cheerio": "^0.20.0",
+    "cheerio": "^0.22.0",
     "coffee-script": "^1.9.3",
     "request": "^2.57.0",
     "string": "^3.2.1",
@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.4.5"
+    "mocha": "^3.0.2"
   },
   "directories": {
     "test": "test"
