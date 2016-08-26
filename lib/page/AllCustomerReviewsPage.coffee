@@ -3,7 +3,7 @@ Page = require './Page'
 module.exports = class AllCustomerReviewsPage extends Page
   constructor: ({@productId, @pageNumber}, callback) -> 
     @pageNumber ?= 1
-    super url: "http://www.amazon.com/gp/aw/cr/#{@productId}/?pageNumber=#{@pageNumber}", callback
+    super url: "https://www.amazon.com/gp/aw/cr/#{@productId}/?pageNumber=#{@pageNumber}", callback
 
   #### get review id array.
   getReviewIds: =>

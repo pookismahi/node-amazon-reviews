@@ -32,9 +32,9 @@ getReview = (options, callback) =>
     review = reviewMobilePage.parse()
 
     reviewDesktopPage = new ReviewDesktopPage options, (err) ->
-      return callback err if err?
+      # return callback err if err?
 
-      _.defaults review, reviewDesktopPage.parse()
+      _.defaults review, reviewDesktopPage.parse() if not err
       callback null, review
 
 #### retrieve reviews by a productId.

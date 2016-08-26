@@ -24,6 +24,6 @@ module.exports = class ReviewMobilePage extends Page
     starCount: S(starString).toInt()
     createdAt: new Date dateText
     descText: S(@$(descSelector).text()).trim().s
-    helpfulCount: S(@$('.votes-helpful').text()).toInt()
-    voteCount: S(@$('.votes-total').text()).toInt()
+    helpfulCount: S(@$('.votes-helpful').text()).toInt() or 0
+    voteCount: S(@$('.votes-total').text()).toInt() or 0
         
