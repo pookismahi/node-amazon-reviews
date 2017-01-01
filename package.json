@@ -20,7 +20,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script --require coffee-script/register -t 50000"
+    "test": "mocha --compilers coffee:coffee-script --require coffee-script/register -t 80000"
   },
   "repository": {
     "type": "git",
