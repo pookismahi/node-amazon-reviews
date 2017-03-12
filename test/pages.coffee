@@ -69,7 +69,7 @@ describe 'Pages', ->
 
         result = page.parse()
         should.exist result?.profile
-        result.profile.should.have.property 'name', 'AJM'
+        result.profile.should.have.property 'name', 'Maker Mac'
         result.profile.should.have.property 'id', 'A3175VKD9K8Z38'
         
         done()
@@ -101,5 +101,9 @@ describe 'Pages', ->
         result.id.should.equal REVIEW_ID
         result.productId.should.equal PRODUCT_ID
         result.title.should.equal 'Work great fpr us...'
+        result.starCount.should.equal 5
+        result.createdAt.should.eql new Date('10/9/2016')
+        result.helpfulCount.should.be.at.least 132
+        result.descText.should.have.string 'bad quality knock-off'
 
         done()

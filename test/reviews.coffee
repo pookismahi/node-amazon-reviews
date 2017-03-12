@@ -13,9 +13,12 @@ describe 'Top level review methods', ->
       
       review.title.should.equal 'Work great fpr us...'
       review.starCount.should.equal 5
-      should.exist review.descText
+      review.createdAt.should.eql new Date('10/9/2016')
+      review.helpfulCount.should.be.at.least 132
+      review.descText.should.have.string 'bad quality knock-off'
+
       should.exist review.profile
-      review.profile.name.should.equal 'AJM'
+      review.profile.name.should.equal 'Maker Mac'
       review.profile.id.should.equal 'A3175VKD9K8Z38'
 
       done()
