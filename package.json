@@ -6,7 +6,7 @@
   "dependencies": {
     "async": "^2.0.1",
     "chance": "^1.0.3",
-    "cheerio": "^0.22.0",
+    "cheerio": "^1.0.0-rc.2",
     "coffee-script": "^1.9.3",
     "request": "^2.57.0",
     "string": "^3.2.1",
