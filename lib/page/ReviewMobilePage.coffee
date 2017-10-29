@@ -2,8 +2,10 @@ Page = require './Page'
 S = require 'string'
 
 module.exports = class ReviewMobilePage extends Page
-  constructor: ({@productId, @reviewId}, callback) -> 
-    super url: "http://www.amazon.com/gp/aw/review/#{@productId}/#{@reviewId}", callback
+  constructor: ({ productId, reviewId }) ->
+    super url: "http://www.amazon.com/gp/aw/review/#{productId}/#{reviewId}"
+    @productId = productId
+    @reviewId = reviewId
 
   parse: () =>
     descSelector = ".review-text"

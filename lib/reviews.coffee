@@ -15,7 +15,7 @@ getReviewIds = (options, callback) =>
   results = () -> callback null, reviewIds
 
   async.doWhilst (cb) =>
-    allCustomerReviewsPage = new AllCustomerReviewsPage options, (err) ->
+    allCustomerReviewsPage = new AllCustomerReviewsPage(options).load (err) ->
       return cb err if err
 
       lastReviewIds = allCustomerReviewsPage.getReviewIds()
@@ -27,11 +27,11 @@ getReviewIds = (options, callback) =>
 
 #### retrieve a review by productId and reviewId.
 getReview = (options, callback) =>
-  reviewMobilePage = new ReviewMobilePage options, (err) ->
+  reviewMobilePage = new ReviewMobilePage(options).load (err) ->
     return callback err if err?
     review = reviewMobilePage.parse()
 
-    reviewDesktopPage = new ReviewDesktopPage options, (err) ->
+    reviewDesktopPage = new ReviewDesktopPage(options).load (err) ->
       # return callback err if err?
 
       _.defaults review, reviewDesktopPage.parse() if not err

@@ -18,11 +18,17 @@ module.exports = class Page
 
   #### load and parse the page.
   # `options` must have `url`.
-  constructor: (@options, callback) ->
-    return callback new Error 'no url.' if not @options.url?
+  constructor: (@options) ->
     @requestCount = 0
     @defaultOptions.headers['User-Agent'] = @userAgent()
-    @makeRequest @options, callback
+
+  load: (callback) ->
+    if not @options.url?
+      callback new Error 'no url.'
+    else
+      @makeRequest @options, callback
+
+    return this
 
   userAgent: () ->
     safariBuild = chance.floating {min: 3214, max: 9985, fixed: 2}

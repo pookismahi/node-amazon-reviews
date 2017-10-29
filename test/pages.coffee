@@ -16,23 +16,19 @@ describe 'Pages', ->
 
   describe 'Page', ->
     it 'should be able to fetch google.com', (done) ->
-      page = new Page
-        url: 'http://www.google.com'
-      , (err) ->
+      page = new Page(url: 'http://www.google.com').load (err) ->
         should.not.exist err
         should.exist page.$
         done()
 
     it 'should have a `no url.` error', (done) ->
-      page = new Page {}, (err) ->
+      page = new Page({}).load (err) ->
         should.exist err
         done()
 
   describe 'AllCustomerReviewsPage', ->
     it 'should be able to load review ids for a product', (done) ->
-      page = new AllCustomerReviewsPage
-        productId: PRODUCT_ID
-      , (err) ->
+      page = new AllCustomerReviewsPage(productId: PRODUCT_ID).load (err) ->
         should.not.exist err
         page.productId.should.equal PRODUCT_ID
         page.pageNumber.should.equal 1
@@ -43,15 +39,10 @@ describe 'Pages', ->
         done()
 
     it 'should be able to load multiple pages for a product', (done) ->
-      page1 = new AllCustomerReviewsPage
-        productId: PRODUCT_ID
-      , (err) ->
+      page1 = new AllCustomerReviewsPage(productId: PRODUCT_ID).load (err) ->
         should.not.exist err
 
-        page2 = new AllCustomerReviewsPage
-          productId: PRODUCT_ID
-          pageNumber: 2
-        , (err) ->
+        page2 = new AllCustomerReviewsPage({ productId: PRODUCT_ID, pageNumber: 2 }).load (err) ->
           should.not.exist err
 
           page2.pageNumber.should.equal 2
@@ -62,9 +53,7 @@ describe 'Pages', ->
 
   describe 'ReviewDesktopPage', ->
     it 'should be able to load a review', (done) ->
-      page = new ReviewDesktopPage
-        reviewId: REVIEW_ID
-      , (err) ->
+      page = new ReviewDesktopPage(reviewId: REVIEW_ID).load (err) ->
         should.not.exist err
 
         result = page.parse()
@@ -75,9 +64,7 @@ describe 'Pages', ->
         done()
 
     it 'should be able to load a review without an author profile', (done) ->
-      page = new ReviewDesktopPage
-        reviewId: REVIEW_ID2
-      , (err) ->
+      page = new ReviewDesktopPage(reviewId: REVIEW_ID2).load (err) ->
         should.not.exist err
 
         result = page.parse()
@@ -90,10 +77,7 @@ describe 'Pages', ->
 
   describe 'ReviewMobilePage', ->
     it 'should be able to load a review', (done) ->
-      page = new ReviewMobilePage
-        productId: PRODUCT_ID
-        reviewId: REVIEW_ID
-      , (err) ->
+      page = new ReviewMobilePage(productId: PRODUCT_ID, reviewId: REVIEW_ID).load (err) ->
         should.not.exist err
 
         result = page.parse()
