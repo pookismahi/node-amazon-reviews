@@ -70,7 +70,7 @@ describe 'Pages', ->
         result = page.parse()
         should.exist result?.profile
         result.profile.should.have.property 'name', 'Maker Mac'
-        result.profile.should.have.property 'id', 'A3175VKD9K8Z38'
+        result.profile.should.have.property 'id', 'amzn1.account.AFTPHZSATSBK4CWUPSWK53VGJ63Q'
         
         done()
 

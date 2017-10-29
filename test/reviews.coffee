@@ -19,7 +19,7 @@ describe 'Top level review methods', ->
 
       should.exist review.profile
       review.profile.name.should.equal 'Maker Mac'
-      review.profile.id.should.equal 'A3175VKD9K8Z38'
+      review.profile.id.should.equal 'amzn1.account.AFTPHZSATSBK4CWUPSWK53VGJ63Q'
 
       done()
 
