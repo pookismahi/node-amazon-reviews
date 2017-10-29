@@ -81,7 +81,7 @@ describe 'Pages', ->
         should.not.exist err
 
         result = page.parse()
-        result.should.have.property.profile
+        result.should.have.property 'profile'
         result.profile.should.have.property 'name', ''
         result.profile.should.have.property 'url', ''
         result.profile.should.have.property 'id', ''
