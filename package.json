@@ -14,13 +14,13 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.0.2"
+    "mocha": "^4.0.0"
   },
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script --require coffee-script/register -t 80000"
+    "test": "mocha --require coffee-script/register -t 80000 \"test/**/*.{js,coffee}\""
   },
   "repository": {
     "type": "git",
