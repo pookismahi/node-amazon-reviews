@@ -1,2 +1,1 @@
-require('coffeescript/register');
-module.exports = require('./lib/reviews');
+module.exports = require('./dist/reviews');
